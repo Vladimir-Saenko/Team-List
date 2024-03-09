@@ -14,6 +14,56 @@ body {
 
 .app {
   margin-top: 20px;
+  max-width: 600px;
+}
+
+.app h2 {
+  text-align: center;
+}
+
+.app hr {
+  margin: 1em 0;
+}
+
+.main {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.main ul {
+  list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+}
+
+.team-list li {
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr auto;
+  grid-column-gap: 0.5rem;
+  padding: 0.5em 1em;
+}
+
+.team-list li:hover {
+  background-color: bisque;
+}
+
+.button-panel {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #fff2e2;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.button {
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+  background-color: #ffb356;
+}
+
+.button:hover {
+  background-color: #fffcf8;
 }
