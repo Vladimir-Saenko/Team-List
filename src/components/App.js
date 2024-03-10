@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TeamList from "./TeamList";
+import AddForm from "./AddForm";
 
 const initList = [
   {
@@ -27,6 +28,11 @@ const initList = [
 
 export default function App() {
   const [teamList, setTeamList] = useState(initList);
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  function handleAddItem() {
+    setShowAddForm((show) => !show);
+  }
 
   return (
     <div className="app">
@@ -36,9 +42,11 @@ export default function App() {
         <TeamList teamList={teamList} />
       </div>
       <div className="button-panel">
-        <button className="button">➕ Добавить</button>
-        <button className="button">➖ Удалить</button>
+        <button className="button" onClick={handleAddItem}>
+          {showAddForm ? "Закрыть" : "➕ Добавить работника"}
+        </button>
       </div>
+      {showAddForm && <AddForm />}
     </div>
   );
 }
