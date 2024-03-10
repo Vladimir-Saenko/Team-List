@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TeamList from "./TeamList";
 import AddForm from "./AddForm";
+import EditForm from "./EditForm";
 
 const initList = [
   {
@@ -29,9 +30,30 @@ const initList = [
 export default function App() {
   const [teamList, setTeamList] = useState(initList);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  function handleAddItem() {
+  function handleshowAddForm() {
     setShowAddForm((show) => !show);
+    setSelectedItem(null);
+  }
+
+  function handleAddItem(addItem) {
+    if (
+      addItem.tabNo > 0 &&
+      addItem.lastName &&
+      addItem.firstName &&
+      addItem.middleName
+    ) {
+      setTeamList((teamList) => [...teamList, addItem]);
+      setShowAddForm(false);
+    }
+  }
+
+  function handleEditItem(item) {
+    setShowAddForm(false);
+    teamList.map((x) =>
+      x.tabNo === item.tabNo ? setSelectedItem(item) : null
+    );
   }
 
   return (
@@ -39,14 +61,18 @@ export default function App() {
       <h2>Team-List App</h2>
       <hr />
       <div className="main">
-        <TeamList teamList={teamList} />
+        <TeamList teamList={teamList} onEditItem={handleEditItem} />
       </div>
       <div className="button-panel">
-        <button className="button" onClick={handleAddItem}>
+        <button className="button" onClick={handleshowAddForm}>
           {showAddForm ? "Закрыть" : "➕ Добавить работника"}
         </button>
       </div>
-      {showAddForm && <AddForm />}
+      {selectedItem ? (
+        <EditForm item={selectedItem} />
+      ) : (
+        showAddForm && <AddForm onAddItem={handleAddItem} />
+      )}
     </div>
   );
 }
