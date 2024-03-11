@@ -1,11 +1,16 @@
 import { useState } from "react";
 
-export default function EditForm({ item }) {
-  const [newStatus, setNewStatus] = useState(item.status);
+export default function EditForm({ item, onChangeStatus }) {
   const fullName = `${item.lastName} ${item.firstName} ${item.middleName}`;
+  const [newStatus, setNewStatus] = useState(item.status);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onChangeStatus(newStatus);
+  }
 
   return (
-    <form className="edit-form">
+    <form className="edit-form" onSubmit={handleSubmit}>
       <h4>Редактирование информации о работнике</h4>
       <div className="edit-item">
         <h5>{fullName}</h5>

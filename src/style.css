@@ -44,13 +44,21 @@ button {
 
 .team-list li {
   display: grid;
-  grid-template-columns: 7fr 2fr 2fr auto auto;
+  grid-template-columns: 7fr 2fr 2.5fr auto auto;
   grid-column-gap: 0.5rem;
   padding: 0.5em 1em;
 }
 
 .team-list li:hover {
   background-color: bisque;
+}
+
+.list-button {
+  background-color: bisque;
+}
+
+.list-button:hover {
+  background-color: #ffb356;
 }
 
 .button-panel {

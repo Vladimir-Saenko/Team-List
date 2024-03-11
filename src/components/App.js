@@ -5,24 +5,24 @@ import EditForm from "./EditForm";
 
 const initList = [
   {
-    firstName: "Максим",
-    middleName: "Ярославич",
-    lastName: "Голошубин",
-    tabNo: 27247,
+    firstName: "Иван",
+    middleName: "Иванович",
+    lastName: "Иванов",
+    tabNo: 11111,
     status: "II смена",
   },
   {
-    firstName: "Владимир",
-    middleName: "Иванович",
-    lastName: "Саенко",
-    tabNo: 27248,
+    firstName: "Сергей",
+    middleName: "Сергеевич",
+    lastName: "Сергеев",
+    tabNo: 22222,
     status: "I смена",
   },
   {
     firstName: "Антон",
-    middleName: "Павлович",
-    lastName: "Самойленко",
-    tabNo: 27249,
+    middleName: "Антонович",
+    lastName: "Антонов",
+    tabNo: 33333,
     status: "Отдых",
   },
 ];
@@ -56,12 +56,40 @@ export default function App() {
     );
   }
 
+  function handleChangeStatus(newStatus) {
+    setSelectedItem(null);
+    setTeamList(
+      teamList.map((item) =>
+        item.tabNo === selectedItem.tabNo
+          ? { ...item, status: newStatus }
+          : (item.status === "I смена" || item.status === "II смена") &
+            (item.status === newStatus)
+          ? { ...item, status: "Отдых" }
+          : item
+      )
+    );
+  }
+
+  function handleDeleteItem(deleteItem) {
+    let isDelete = window.confirm(
+      "Вы уверены, что хотите удалить работника из списка?"
+    );
+    if (isDelete) {
+      setSelectedItem(null);
+      setTeamList(teamList.filter((item) => item.tabNo !== deleteItem.tabNo));
+    }
+  }
+
   return (
     <div className="app">
       <h2>Team-List App</h2>
       <hr />
       <div className="main">
-        <TeamList teamList={teamList} onEditItem={handleEditItem} />
+        <TeamList
+          teamList={teamList}
+          onEditItem={handleEditItem}
+          onDeleteItem={handleDeleteItem}
+        />
       </div>
       <div className="button-panel">
         <button className="button" onClick={handleshowAddForm}>
@@ -69,7 +97,7 @@ export default function App() {
         </button>
       </div>
       {selectedItem ? (
-        <EditForm item={selectedItem} />
+        <EditForm item={selectedItem} onChangeStatus={handleChangeStatus} />
       ) : (
         showAddForm && <AddForm onAddItem={handleAddItem} />
       )}

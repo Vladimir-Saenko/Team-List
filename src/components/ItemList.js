@@ -1,4 +1,4 @@
-export default function ItemList({ item, onEditItem }) {
+export default function ItemList({ item, onEditItem, onDeleteItem }) {
   const name = `${item.firstName} ${item.middleName} ${item.lastName}`;
   return (
     <li>
@@ -8,7 +8,9 @@ export default function ItemList({ item, onEditItem }) {
       <button className="list-button" onClick={() => onEditItem(item)}>
         📝
       </button>
-      <button className="list-button">❌ Удалить</button>
+      <button className="list-button" onClick={() => onDeleteItem(item)}>
+        ❌ Удалить
+      </button>
     </li>
   );
 }
